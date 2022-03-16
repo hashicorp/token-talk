@@ -1,4 +1,0 @@
-#!/bin/bash
-
-rm -fr presentation/*
-vimdeck slideshow -p 2 --no-ascii --no-filetype README.md
