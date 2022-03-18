@@ -1,4 +1,4 @@
-# OAuth2 - Token Exchange with mo
+# OAuth2 - Token Exchange
 
 ```text
   ,d               88
@@ -12,8 +12,6 @@ MM88MMM ,adPPYba,  88   ,d8  ,adPPYba, 8b,dPPYba,  ,adPPYba,
 
 
 # Agenda
-
-https://github.com/mokhan/token-talk
 
 Why? Then How.
 
@@ -280,13 +278,13 @@ behalf.
      |        |
      |        |                               +---------------+
      |        |--(C)-- Authorization Grant -->|               |
-     | my app |                               |   auth.amp.*  |
+     | my app |                               |  auth.acme.*  |
      |        |<-(D)----- Access Token -------|               |
      |        |                               +---------------+
      |        |
      |        |                               +---------------+
      |        |--(E)----- Access Token ------>|               |
-     |        |                               |   api.amp.*   |
+     |        |                               |  api.acme.*   |
      |        |<-(F)--- Protected Resource ---|               |
      +--------+                               +---------------+
 ```
@@ -305,13 +303,13 @@ Short circuit for SAML service providers.
      |        |    (A) SAML Authentication |
      |        |                            |  +---------------+
      |        |                            -->|               |
-     | my app |                               |   auth.amp.*  |
+     | my app |                               |  auth.acme.*  |
      |        |<-(B)----- Access Token -------|               |
      |        |                               +---------------+
      |        |
      |        |                               +---------------+
      |        |--(C)----- Access Token ------>|               |
-     |        |                               |   api.amp.*   |
+     |        |                               |  api.acme.*   |
      |        |<-(D)--- Protected Resource ---|               |
      +--------+                               +---------------+
 ```
@@ -683,11 +681,8 @@ is revoked.
 
 # Thanks
 
-https://github.com/mokhan/token-talk
-
 References:
 
-* https://auth.amp.cisco.com/doc
 * https://aws.amazon.com/secrets-manager/
 * https://jwt.io/
 * https://tools.ietf.org/html/rfc6749
