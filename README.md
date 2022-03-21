@@ -627,7 +627,6 @@ is revoked.
 
 References:
 
-* https://aws.amazon.com/secrets-manager/
 * https://jwt.io/
 * https://tools.ietf.org/html/rfc6749
 * https://tools.ietf.org/html/rfc7515
