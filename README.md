@@ -1,4 +1,4 @@
-# OAuth2 - Token Exchange
+# Tokens
 
 ```text
   ,d               88
@@ -20,7 +20,6 @@ Why? Then How.
 * 3. Roles
 * 4. Protocol Flow
 * 5. Grant Types
-* 6. Examples
 
 
 # Authn vs Authz
@@ -243,8 +242,8 @@ JWT Claims
 ```json
 {
   "exp": 1553206143,
-  "iat": 1553119743,
-  "iss": "https://shiro.test/metadata",
+ "iat": 1553119743,
+  "iss": "https://auth.acme.test/metadata",
   "nbf": 1553119743,
   "jti": "30ee4f06-3e2b-4ef4-961e-5a1dfd530ca5",
   "sub": "d98ecc05-eab8-4683-8288-249312d3f592",
@@ -259,8 +258,7 @@ client can exchange a `refresh token` to gain a new `access token`
 and `refresh token`.
 
 The purpose of the `refresh token` is to allow a client to get a new
-`access token` and `refresh token` pair. Once a `refresh token` is used
-it cannot be re-used.
+`access token` and `refresh token` pair.
 
 ```text
         +------------------------------+
@@ -606,90 +604,6 @@ Content-Type: application/json
 ```
 
 
-# Moonwalk to this!
-
-```text
-            _,.-"T
-      _.--{~    :l
-    c"     `.    :I
-    |  .-"~-.\    l     .--.
-    | Y_r--. Y) ___I ,-"(~\ Y
-    |[__L__/ j"~=__]~_~\." _/
- ___|  \.__.r--<~__.T T/ "~/
-'--cl___/\ ( () ).,_L_]}--{
-   `--'   `-^--^\ /___"(~\ Y
-                 "~7/ \ " `/
-                  // //]--[
-                 /> oX |: L
-                //  /  `| o\
-               //. /    I  [
-              / \]/     l: |
-             Y.//       `|_I
-             I_Z         L :]
-            /".-7        [n]l
-           Y / /         I //
-           |] /         /]"/
-           L:/         //./
-          [_7      _  // /
-            _  ,-="_"^K_/
-           [ ][.-~" ~"-.]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```
-
-
-# Examples - Quick & Dirty
-
-```ruby
-namespace :token do
-  desc 'register a new service access/refresh token'
-  task :register, [:token] => [:environment] do |task, args|
-    require 'register_token'
-    puts RegisterToken.new.run(service: :shiro, token: args[:token]).inspect
-  end
-
-  desc 'exchange refresh token for a new access token'
-  task renew: [:environment] do
-    refresh_token = Token.refresh.active.order(created_at: :desc).first
-    refresh_token&.exchange!
-  end
-end
-```
-
-
-# Examples - Quick & Dirty
-
-```ruby
-class Token < ApplicationRecord
-  def exchange!(client: token_exchange_client)
-    response = client.exchange(value)
-    transaction do
-      destroy!
-      Token.create!(
-        service: service,
-        token_type: :access,
-        expires_at: response[:expires_in].to_i.seconds.from_now,
-        value: response[:access_token]
-      )
-      Token.create!(
-        service: service,
-        token_type: :refresh,
-        expires_at: response[:expires_in].to_i.seconds.from_now,
-        value: response[:refresh_token]
-      )
-    end
-  end
-end
-```
-
-
-# Examples - AWS Secrets Manager
-
-> You can customize Lambda functions to extend Secrets Manager rotation to
-> other secret types, such as API keys and OAuth tokens used to
-> authenticate users to mobile applications.
-- https://aws.amazon.com/secrets-manager/
-
-
 # Conclusion
 
 An `access token` decouples a resource owners credentials from the
@@ -728,7 +642,6 @@ is revoked.
 
 References:
 
-* https://aws.amazon.com/secrets-manager/
 * https://jwt.io/
 * https://tools.ietf.org/html/rfc6749
 * https://tools.ietf.org/html/rfc7515
