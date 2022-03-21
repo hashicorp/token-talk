@@ -43,7 +43,7 @@ Example 2: Riding the bus
 A transit token authorizes you to ride the bus for 90 minutes.
 Proof of identity is not required.
 
-```text
+```plaintext
         +------------------------------+
         |        transit ticket        |
         |                              |
@@ -59,7 +59,7 @@ Proof of identity is not required.
 Transferring the token to someone else, authorizes them to ride the bus for 90 minutes.
 You're not supposed to transfer your transit token but detection is difficult.
 
-```text
+```plaintext
         +------------------------------+
         |        transit ticket        |
         |                              |
@@ -84,7 +84,7 @@ scope.
 
 The `access token` represents a subject, audience, issuer and expiration.
 
-```text
+```plaintext
         +------------------------------+
         |        transit ticket        |
         |                              |
@@ -102,7 +102,7 @@ Audience: Bus Driver
 Issuer: Calgary Transit
 Expiration: 90 minutes from when the ticket was purchased.
 
-```text
+```plaintext
         +------------------------------+
         |        transit ticket        |
         |                              |
@@ -130,7 +130,7 @@ When you enter a concert venue and you are asked to present your ticket.
 They will likely scan your ticket to verify that the ticket is legit.
 The scan will need to verify that the ticket is in a database.
 
-```text
+```plaintext
         +------------------------------+
         |    KRS-ONE                   |
         |                              |
@@ -149,7 +149,7 @@ Example: Calgary Transit Ticket
 When you board a bus in Calgary, you must show the driver the ticket.
 All the data the driver needs to admit you is in the ticket itself.
 
-```text
+```plaintext
         +------------------------------+
         |        transit ticket        |
         |                              |
@@ -170,6 +170,7 @@ A user sends a request (along with a token) to the Bingo service, and the follow
 
 Whew... that's a lot of requests to auth services...
 
+```plaintext
 ┌───────────┐                      ┌───────────┐
 │           │                      │           │
 │   Authn   │                ┌─────►   Authz   ◄──────────┐
@@ -183,7 +184,7 @@ Whew... that's a lot of requests to auth services...
  │   Bingo   ├──────────►  Papaya   ├─────────────►   Magic Baby (MBS)  │
  │           │          │           │             │                     │
  └───────────┘          └───────────┘             └─────────────────────┘
-
+```
 
 P.S. If you're confused about the example Service names, see here: https://www.youtube.com/watch?v=y8OnoxKotPQ 
 
@@ -198,19 +199,20 @@ A user sends a request (along with a token) to the Bingo service, and the follow
 
 Less requests, means less complexity, means more time can be spent coming up with more abstract names for microservices! Woohoo!
 
+```plaintext
 ┌───────────┐          ┌───────────┐             ┌─────────────────────┐
 │           │          │           │             │                     │
 │   Bingo   ├──────────►  Papaya   ├─────────────►   Magic Baby (MBS)  │
 │           │          │           │             │                     │
 └───────────┘          └───────────┘             └─────────────────────┘
-
+```
 
 # Tokens - JWT
 
 JSON web tokens allow us to create stateless
 tokens that encode the necessary information into the token.
 
-```text
+```plaintext
 {header}.{body}.{signature}
 ```
 
@@ -219,11 +221,11 @@ tokens that encode the necessary information into the token.
 
 Example Token
 
-```text
+```plaintext
 {header}.{body}.{signature}
 ```
 
-```text
+```plaintext
 eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE1NTMyMDYx<snip>.BrWtDArYiut47Oo76UTD<snip>
 ```
 
@@ -260,7 +262,7 @@ and `refresh token`.
 The purpose of the `refresh token` is to allow a client to get a new
 `access token` and `refresh token` pair.
 
-```text
+```plaintext
         +------------------------------+
         |        Credit Card           |
         |                              |
@@ -285,7 +287,7 @@ OAuth 2 is a delegation protocol. The `client` does not know the
 credentials of the `resource owner` but can access resources on it's
 behalf.
 
-```text
+```plaintext
      +--------+                               +---------------+
      |        |--(A)- Authorization Request ->|   Resource    |
      |        |                               |     Owner     |
@@ -312,7 +314,7 @@ OAuth 2 is a delegation protocol. The `client` does not know the
 credentials of the `resource owner` but can access resources on it's
 behalf.
 
-```text
+```plaintext
      +--------+                               +---------------+
      |        |--(A)- Authorization Request ->|               |
      |        |                               |     HUMAN     |
@@ -337,7 +339,7 @@ behalf.
 
 Short circuit for SAML service providers.
 
-```text
+```plaintext
      +--------+                               +---------------+
      |        |                               |               |
      |        |                               |     HUMAN     |
@@ -360,7 +362,7 @@ Short circuit for SAML service providers.
 
 # Protocol Flow
 
-```text
+```plaintext
     +--------+                                           +---------------+
     |        |--(A)------- Authorization Grant --------->|               |
     |        |                                           |               |
@@ -405,7 +407,7 @@ to both the authorization server and the client web app.
 
 # Grant Types - Authorization Code
 
-```text
+```plaintext
     +----------+
     | Resource |
     |   Owner  |
@@ -436,7 +438,7 @@ to both the authorization server and the client web app.
 
 # Grant Types - Authorization Code
 
-```text
+```plaintext
 https://www.example.com/oauth/authorize
   ?response_type=code
   &client_id=client_id
@@ -444,7 +446,7 @@ https://www.example.com/oauth/authorize
   &scope='read:scim.me write:scim.me'
 ```
 
-```text
+```plaintext
             -----------------
             Login
 
@@ -458,7 +460,7 @@ https://www.example.com/oauth/authorize
 
 # Grant Types - Authorization Code
 
-```text
+```plaintext
  ----------------------------------------------------
 `client X` would like the following scopes:
 
@@ -470,7 +472,7 @@ https://www.example.com/oauth/authorize
  ----------------------------------------------------
 ```
 
-```text
+```plaintext
 https://www.example.org/oauth/callback
   ?grant_type=authorization_code
   &code=secret
@@ -479,7 +481,7 @@ https://www.example.org/oauth/callback
 
 # Grant Types - Authorization Code
 
-```text
+```plaintext
     +--------+                                           +---------------+
     |        |--(A)------- Authorization Grant --------->|               |
     |        |                                           |               |
@@ -514,7 +516,7 @@ $ curl https://www.example.com/oauth/tokens \
   -H "Authorization: Basic base64(client_id:client_secret)"
 ```
 
-```text
+```plaintext
 200 OK
 
 Cache-Control: private, no-store
@@ -536,7 +538,7 @@ Content-Type: application/json; charset=utf-8
 This grant can be used by a client to exchange a
 `refresh token` for a new `access token` and `refresh token`.
 
-```text
+```plaintext
     +--------+                                           +---------------+
     |        |--(A)------- Authorization Grant --------->|               |
     |        |                                           |               |
@@ -561,7 +563,7 @@ This grant can be used by a client to exchange a
 
 
 # Grant Types - Refresh Token
-```text
+```plaintext
 POST /token HTTP/1.1
 Authorization: Basic base64(client_id:client_secret)
 Content-Type: application/x-www-form-urlencoded
@@ -571,7 +573,7 @@ grant_type=refresh_token&refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
 
 Response:
 
-```text
+```plaintext
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Cache-Control: no-store
@@ -588,7 +590,7 @@ Pragma: no-cache
 
 # Protocol Flow - Accessing a Protected Resource
 
-```text
+```plaintext
 GET /api/policies/
 Authorization: Bearer eyJhbGciOiJSUzI1NiJ9
 Accept: application/json
@@ -614,7 +616,7 @@ client to gain a new `access token` and `refresh token`.
 The exchange process can be triggered when an `access token` expires or
 is revoked.
 
-```text
+```plaintext
     +--------+                                           +---------------+
     |        |--(A)------- Authorization Grant --------->|               |
     |        |                                           |               |
