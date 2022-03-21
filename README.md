@@ -213,8 +213,7 @@ client can exchange a `refresh token` to gain a new `access token`
 and `refresh token`.
 
 The purpose of the `refresh token` is to allow a client to get a new
-`access token` and `refresh token` pair. Once a `refresh token` is used
-it cannot be re-used.
+`access token` and `refresh token` pair.
 
 ```text
         +------------------------------+
