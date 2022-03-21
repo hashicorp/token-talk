@@ -1,4 +1,4 @@
-# OAuth2 - Token Exchange
+# Tokens
 
 ```text
   ,d               88
