@@ -162,7 +162,7 @@ All the data the driver needs to admit you is in the ticket itself.
 
 # Tokens - Impact on Microservices (Stateful style)
 
-Let's say you have an applicaiton that is a cluster of microservices that is authenticated via Stateful tokens (not JWTs).
+Let's say you have an application that is a cluster of microservices that is authenticated via Stateful tokens (not JWTs).
 
 A user sends a request (along with a token) to the Bingo service, and the following events take place:
 1. The Bingo service will verify the provided user's token is valid by sending it to the authentication service. If the token is valid, the Bingo service then forwards the token and request data to the Papaya Service.
