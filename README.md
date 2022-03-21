@@ -160,6 +160,51 @@ All the data the driver needs to admit you is in the ticket itself.
         +------------------------------+
 ```
 
+# Tokens - Impact on Microservices (Stateful style)
+
+Let's say you have an application that is a cluster of microservices that is authenticated via Stateful tokens (not JWTs).
+
+A user sends a request (along with a token) to the Bingo service, and the following events take place:
+1. The Bingo service will verify the provided user's token is valid by sending it to the authentication service. If the token is valid, the Bingo service then forwards the token and request data to the Papaya Service.
+2. The Papaya service only allows certain users to access it, so it sends the user's token to an Authorization service to try and fetch the user's permissions. If the user has the necessary permissions, it will do some work, then call the Magic Baby service (MBS for short) to fetch the final data needed to process the user's request.
+3. MBS needs to validate that the provided token has permissions to use it, so it makes yet another request to the Authorization service to check if the user has the necessary permissions.
+
+Whew... that's a lot of requests to auth services...
+
+┌───────────┐                      ┌───────────┐
+│           │                      │           │
+│   Authn   │                ┌─────►   Authz   ◄──────────┐
+│           │                │     │           │          │
+└──────▲────┘                │     └───────────┘          │
+       │                     │                            │
+       │                     │                            │
+       │                     │                            │
+ ┌─────┴─────┐          ┌────┴──────┐             ┌───────┴─────────────┐
+ │           │          │           │             │                     │
+ │   Bingo   ├──────────►  Papaya   ├─────────────►   Magic Baby (MBS)  │
+ │           │          │           │             │                     │
+ └───────────┘          └───────────┘             └─────────────────────┘
+
+
+P.S. If you're confused about the example Service names, see here: https://www.youtube.com/watch?v=y8OnoxKotPQ 
+
+# Tokens - Impact on Microservices (Stateless style)
+
+To get a sense of why stateless tokens are amazing, let's reimagine our cluster of microservices, but with them using Stateless tokens (a.k.a. JWTs).
+
+A user sends a request (along with a token) to the Bingo service, and the following events take place:
+1. The Bingo service can verify the user's provided JWT by simply checking if the signature is valid, so no request to an Auth service is needed. Just like in the previous example though, it still needs to forward the request and token to the Papaya service.
+2. The Papaya service examines the JWT it recieved from the Bing service, in the JWT's payload it sees the user has permission to use it so no request to any Auth services are needed. It forwards the request along to the MBS.
+3. MBS, just like the Papaya service, reads the JWT's payload and sees that it has all the required permissions, so the request can be processed without any calls to any Auth services.
+
+Less requests, means less complexity, means more time can be spent coming up with more abstract names for microservices! Woohoo!
+
+┌───────────┐          ┌───────────┐             ┌─────────────────────┐
+│           │          │           │             │                     │
+│   Bingo   ├──────────►  Papaya   ├─────────────►   Magic Baby (MBS)  │
+│           │          │           │             │                     │
+└───────────┘          └───────────┘             └─────────────────────┘
+
 
 # Tokens - JWT
 
