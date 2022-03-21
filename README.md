@@ -20,7 +20,6 @@ Why? Then How.
 * 3. Roles
 * 4. Protocol Flow
 * 5. Grant Types
-* 6. Examples
 
 
 # Authn vs Authz
@@ -590,60 +589,6 @@ Content-Type: application/json
            [ ][.-~" ~"-.]
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
-
-
-# Examples - Quick & Dirty
-
-```ruby
-namespace :token do
-  desc 'register a new service access/refresh token'
-  task :register, [:token] => [:environment] do |task, args|
-    require 'register_token'
-    puts RegisterToken.new.run(service: :shiro, token: args[:token]).inspect
-  end
-
-  desc 'exchange refresh token for a new access token'
-  task renew: [:environment] do
-    refresh_token = Token.refresh.active.order(created_at: :desc).first
-    refresh_token&.exchange!
-  end
-end
-```
-
-
-# Examples - Quick & Dirty
-
-```ruby
-class Token < ApplicationRecord
-  def exchange!(client: token_exchange_client)
-    response = client.exchange(value)
-    transaction do
-      destroy!
-      Token.create!(
-        service: service,
-        token_type: :access,
-        expires_at: response[:expires_in].to_i.seconds.from_now,
-        value: response[:access_token]
-      )
-      Token.create!(
-        service: service,
-        token_type: :refresh,
-        expires_at: response[:expires_in].to_i.seconds.from_now,
-        value: response[:refresh_token]
-      )
-    end
-  end
-end
-```
-
-
-# Examples - AWS Secrets Manager
-
-> You can customize Lambda functions to extend Secrets Manager rotation to
-> other secret types, such as API keys and OAuth tokens used to
-> authenticate users to mobile applications.
-- https://aws.amazon.com/secrets-manager/
-
 
 # Conclusion
 
