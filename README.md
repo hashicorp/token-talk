@@ -559,36 +559,6 @@ Content-Type: application/json
 ```
 
 
-# Moonwalk to this!
-
-```text
-            _,.-"T
-      _.--{~    :l
-    c"     `.    :I
-    |  .-"~-.\    l     .--.
-    | Y_r--. Y) ___I ,-"(~\ Y
-    |[__L__/ j"~=__]~_~\." _/
- ___|  \.__.r--<~__.T T/ "~/
-'--cl___/\ ( () ).,_L_]}--{
-   `--'   `-^--^\ /___"(~\ Y
-                 "~7/ \ " `/
-                  // //]--[
-                 /> oX |: L
-                //  /  `| o\
-               //. /    I  [
-              / \]/     l: |
-             Y.//       `|_I
-             I_Z         L :]
-            /".-7        [n]l
-           Y / /         I //
-           |] /         /]"/
-           L:/         //./
-          [_7      _  // /
-            _  ,-="_"^K_/
-           [ ][.-~" ~"-.]
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```
-
 # Conclusion
 
 An `access token` decouples a resource owners credentials from the
