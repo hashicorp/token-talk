@@ -197,8 +197,8 @@ JWT Claims
 ```json
 {
   "exp": 1553206143,
-  "iat": 1553119743,
-  "iss": "https://shiro.test/metadata",
+ "iat": 1553119743,
+  "iss": "https://auth.acme.test/metadata",
   "nbf": 1553119743,
   "jti": "30ee4f06-3e2b-4ef4-961e-5a1dfd530ca5",
   "sub": "d98ecc05-eab8-4683-8288-249312d3f592",
